@@ -2,17 +2,8 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/shared/header";
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 const nunito = Nunito({
   subsets: ['cyrillic'],
   variable: '--font-nunito',
@@ -33,6 +24,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={nunito.className}>
         <main className="min-h-screen">
+          <Header></Header>
           {children}
         </main>
       </body>
