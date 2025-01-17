@@ -1,3 +1,4 @@
+'use client' 
 import React from 'react';
 import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
 import { Input } from '../ui';
