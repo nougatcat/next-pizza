@@ -26,21 +26,21 @@ export default function Home() {
                 items: [{ price: 550 }]
               },
               {
-                id: 1,
+                id: 2,
                 name: "Бургер-пицца",
                 imageUrl: 'https://media.dodostatic.net/image/r:233x233/11ee7d61698827ee9b8db6d0aec53410.avif',
                 price: 550,
                 items: [{ price: 550 }]
               },
               {
-                id: 1,
+                id: 3,
                 name: "Бургер-пицца",
                 imageUrl: 'https://media.dodostatic.net/image/r:233x233/11ee7d61698827ee9b8db6d0aec53410.avif',
                 price: 550,
                 items: [{ price: 550 }]
               },
               {
-                id: 1,
+                id: 4,
                 name: "Бургер-пицца",
                 imageUrl: 'https://media.dodostatic.net/image/r:233x233/11ee7d61698827ee9b8db6d0aec53410.avif',
                 price: 550,
@@ -49,20 +49,20 @@ export default function Home() {
             ]} categoryId={1} />
             <ProductsGroupList title="Завтрак" items={[
               {
-                id: 1,
+                id: 5,
                 name: "Омлет",
                 imageUrl: 'https://media.dodostatic.net/image/r:233x233/11ee7970328e722d877398a9cf6e312b.avif',
                 price: 550,
                 items: [{ price: 550 }]
               },
               {
-                id: 1,
+                id: 6,
                 name: "Омлет",
                 imageUrl: 'https://media.dodostatic.net/image/r:233x233/11ee7970328e722d877398a9cf6e312b.avif',
                 price: 550,
                 items: [{ price: 550 }]
               },
-            ]} categoryId={1} />
+            ]} categoryId={2} />
           </div>
         </div>
       </div>
