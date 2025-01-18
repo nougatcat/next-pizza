@@ -6,6 +6,7 @@
 
 html {
   scroll-behavior: smooth;
+  /* пример использования плавного скролла - перемещение по пунктам меню, которое работает через якоря */
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
