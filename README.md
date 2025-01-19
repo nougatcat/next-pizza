@@ -6,9 +6,7 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
-
-First, run the development server:
+## Запуск
 
 ```bash
 npm run dev
@@ -18,6 +16,10 @@ yarn dev
 pnpm dev
 # or
 bun dev
+# update db
+yarn prisma:push
+# prisma studio
+yarn prisma:studio
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
