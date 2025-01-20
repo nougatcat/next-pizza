@@ -23,12 +23,32 @@ model User {
     updatedAt DateTime @updatedAt
 }
 
+model Category {
+    id Int @id @default(autoincrement())
+    name String @unique
+    products Product[]
+}
+
 model Product {
     id Int @id @default(autoincrement())
     
     name     String
     imageUrl String 
+
+    category Category @relation(fields: [categoryId], references: [id]) //поле для связи с Category для javascript
+    categoryId Int //поле для связи с Category для бд
     
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 } 
+
+model Ingredient {
+    id Int @id @default(autoincrement())
+
+    name String
+    price Int
+    imageUrl String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
