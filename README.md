@@ -16,10 +16,10 @@ yarn dev
 pnpm dev
 # or
 bun dev
-# update db
-yarn prisma:push
+# update db - ! Выполнять перед запуском studio
+npm run prisma:push
 # prisma studio
-yarn prisma:studio
+npm run prisma:studio
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
