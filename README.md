@@ -16,11 +16,16 @@ yarn dev
 pnpm dev
 # or
 bun dev
-# update db - ! Выполнять перед запуском studio
+# update db - выполнять после каждого изменения схемы
 npm run prisma:push
 # prisma studio
 npm run prisma:studio
+# prisma generate - обновить типизацию без обновления бд (вместо пуш)
+npm run prisma:generate
+# prisma seed - для тестовых данных
+npm run prisma:seed
 ```
+Figma-дизайн: https://www.figma.com/design/cYz4fOSK74EJoqHxoNr1hT/Next-Pizza
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
