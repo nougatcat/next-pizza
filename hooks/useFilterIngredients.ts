@@ -17,7 +17,7 @@ export const useFilterIngredients = (): ReturnProps => {
     const [loading, setLoading] = React.useState(true)
 
     const [selectedIds, {toggle}] = useSet(new Set([])) //хук для использования встроенной реализации множеств (set)
-
+    // с помощью useSet храним список выбранных id ингредиентов
     React.useEffect(() => {
         async function fetchIngredients() {
             try {

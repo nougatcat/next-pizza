@@ -77,7 +77,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
                         endAdornment={item.endAdornment}
                         checked={selectedIds?.has(item.value)}
                         name={name}
-                        onCheckedChange={() => OnClickCheckbox?.(item.value)} //при каждом клике на чекбокс в стейт сохр его значение
+                        onCheckedChange={() => OnClickCheckbox?.(item.value)} // при каждом рендере передается эта функция со своим value (id игридиента), передаст тот id, на который кликнули
                     />
                 ))}
             </div>
