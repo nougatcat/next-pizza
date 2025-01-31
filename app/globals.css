@@ -54,6 +54,7 @@ html {
 .scrollbar::-webkit-scrollbar {
   width: 4px;
 }
+/* не поддерживается файрфоксом, поддерживается хромом. Файрфокс вообще не поддерживает webkit-scrollbar и скролл в нем можно поменять только через js */
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 6px;

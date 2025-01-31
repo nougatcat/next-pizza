@@ -20,11 +20,20 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
         setFocused(false)
     })
 
-    useDebounce(() => {
-        Api.products.search(searchQuery).then(items => {
-            setProducts(items)
-        })
-    }, 250, [searchQuery]) //! useDebounce вместо useEffect, чтобы не было лишних запросов, отличие в том, что задаем время задержки, это защита от дос атаки
+    // useDebounce(() => {
+    //     Api.products.search(searchQuery).then(items => {
+    //         setProducts(items)
+    //     })
+    // }, 250, [searchQuery]) //! useDebounce вместо useEffect, чтобы не было лишних запросов, отличие в том, что задаем время задержки, это защита от дос атаки
+    useDebounce( //альтернативная запись, но с отловом ошибок
+        async () => {
+            try {
+                const response = await Api.products.search(searchQuery)
+                setProducts(response)
+            } catch (error) {
+                console.log(error)
+            }
+        },250,[searchQuery])
     const onClickItem = () => {
         setFocused(false);
         setSearchQuery('');

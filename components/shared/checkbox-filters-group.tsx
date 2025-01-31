@@ -11,7 +11,7 @@ interface Props {
     defaultItems: Item[];
     limit?: number;
     searchInputPlaceholder?: string;
-    OnChange?: (vakues: string[]) => void; //какие чекбоксы выбрали
+    OnChange?: (values: string[]) => void; //какие чекбоксы выбрали
     defaultValue?: string[];
     className?: string;
 }
@@ -42,7 +42,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
                         className='bg-gray-50 border-none' />
                 </div>
             )}
-            <div className='flex flex-col gap-4 hax-h-96 pr-2 overflow-auto scrollbar'>
+            <div className='flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar'>
                 {list.map((item, index) => (
                     <FilterCheckbox
                         key={index}
