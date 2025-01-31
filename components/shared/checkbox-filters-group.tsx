@@ -12,14 +12,25 @@ interface Props {
     limit?: number;
     loading: boolean;
     searchInputPlaceholder?: string;
-    OnChange?: (values: string[]) => void; //какие чекбоксы выбрали
+    OnClickCheckbox?: (id: string) => void; //какие чекбоксы выбрали
     defaultValue?: string[];
+    selectedIds?: Set<string>;
+    name?: string;
     className?: string;
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = (
-    { title, items, defaultItems, limit = 5, searchInputPlaceholder = 'Поиск...',
-        loading, OnChange, defaultValue, className }
+    { title, 
+        items, 
+        defaultItems, 
+        limit = 5, 
+        searchInputPlaceholder = 'Поиск...',
+        loading, 
+        OnClickCheckbox,
+        name, 
+        defaultValue, 
+        selectedIds, 
+        className }
 ) => {
     const [showAll, setShowAll] = React.useState(false);
 
@@ -64,8 +75,9 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
                         text={item.text}
                         value={item.value}
                         endAdornment={item.endAdornment}
-                        checked={false}
-                        onCheckedChange={(ids) => console.log(ids)} //при каждом клике на чекбокс в стейт сохр его значение (пока что только консоль лог)
+                        checked={selectedIds?.has(item.value)}
+                        name={name}
+                        onCheckedChange={() => OnClickCheckbox?.(item.value)} //при каждом клике на чекбокс в стейт сохр его значение
                     />
                 ))}
             </div>
