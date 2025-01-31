@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
-import { Input } from '../ui';
+import { Input, Skeleton } from '../ui';
 
 type Item = FilterChecboxProps;
 
@@ -10,6 +10,7 @@ interface Props {
     items: Item[];
     defaultItems: Item[];
     limit?: number;
+    loading: boolean;
     searchInputPlaceholder?: string;
     OnChange?: (values: string[]) => void; //какие чекбоксы выбрали
     defaultValue?: string[];
@@ -17,7 +18,8 @@ interface Props {
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = (
-    { title, items, defaultItems, limit = 6, searchInputPlaceholder = 'Поиск...', OnChange, defaultValue, className }
+    { title, items, defaultItems, limit = 5, searchInputPlaceholder = 'Поиск...',
+        loading, OnChange, defaultValue, className }
 ) => {
     const [showAll, setShowAll] = React.useState(false);
 
@@ -25,6 +27,19 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
     const [searchValue, setSearchValue] = React.useState('');
     const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
+    }
+    if (loading) {
+        return <div className={className}>
+            <div className="font-bold mb-3">{title}
+                {
+                    ...Array(limit).fill(0).map((_,index) => (
+                        <Skeleton key={index} className='h-6 mb-4 rounded=[8px]' />
+                    ))
+                }
+                {/* я не могу понять, для чего тут нужен ... спред оператор - без него все работает */}
+                <Skeleton className='w-28 h-6 mb-4 rounded-[8px]'/>
+            </div>
+        </div>
     }
     const list = showAll 
     ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) 
