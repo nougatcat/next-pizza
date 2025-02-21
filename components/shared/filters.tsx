@@ -5,6 +5,7 @@ import { Input, RangeSlider } from '../ui';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredients } from '@/hooks/useFilterIngredients';
 import { useSet } from 'react-use';
+import qs from 'qs'
 
 interface Props {
     className?: string;
@@ -31,8 +32,6 @@ export const Filters: React.FC<Props> = ({ className }) => {
         })
     }
 
-
-
     React.useEffect(() => {
         const filters = {
             ...prices,
@@ -40,7 +39,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             sizes: Array.from(sizes),
             ingredients: Array.from(selectedIngredients),
         }
-        console.log()
+        const query = qs.stringify(filters, {arrayFormat: 'comma'})
     }, [prices, pizzaTypes, sizes, selectedIngredients])
 
     return (
