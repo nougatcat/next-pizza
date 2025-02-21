@@ -10,7 +10,7 @@ interface Props {
     items: Item[];
     defaultItems?: Item[];
     limit?: number;
-    loading: boolean;
+    loading?: boolean;
     searchInputPlaceholder?: string;
     OnClickCheckbox?: (id: string) => void; //какие чекбоксы выбрали
     defaultValue?: string[];

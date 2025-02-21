@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import { Title } from './title';
-import { FilterCheckbox } from './filter-checkbox';
 import { Input, RangeSlider } from '../ui';
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
 import { useFilterIngredients } from '@/hooks/useFilterIngredients';
@@ -17,10 +16,11 @@ interface PriceProps {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
-    const { ingredients, loading, onAddId, selectedIds } = useFilterIngredients()
+    const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredients()
     const [prices, setPrice] = React.useState<PriceProps>({ priceFrom: 0, priceTo: 1000 })
 
     const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>([]))
+    const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(new Set<string>([]))
 
     const items = ingredients.map((item) => ({ value: String(item.id), text: item.name }))
 
@@ -31,10 +31,33 @@ export const Filters: React.FC<Props> = ({ className }) => {
         })
     }
 
+
+
+    React.useEffect(() => {
+        const filters = {
+            ...prices,
+            pizzaTypes: Array.from(pizzaTypes),
+            sizes: Array.from(sizes),
+            ingredients: Array.from(selectedIngredients),
+        }
+        console.log()
+    }, [prices, pizzaTypes, sizes, selectedIngredients])
+
     return (
         <div className={className}>
             <Title text='Фильтрация' size='sm' className='mb-5 font-bold' />
             {/* Верхние чекбоксы */}
+            <CheckboxFiltersGroup
+                title='Тип теста'
+                name='pizzaTypes'
+                className='mb-5'
+                OnClickCheckbox={togglePizzaTypes}
+                selected={pizzaTypes}
+                items={[
+                    { text: 'Тонкое', value: '1' },
+                    { text: 'Толстое', value: '2' },
+                ]}
+            />
             <CheckboxFiltersGroup
                 title='Размеры'
                 name='sizes'
@@ -83,7 +106,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
                 items={items}
                 loading={loading}
                 OnClickCheckbox={onAddId}
-                selected={selectedIds}
+                selected={selectedIngredients}
             />
         </div>
     );
