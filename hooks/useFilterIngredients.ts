@@ -12,7 +12,7 @@ interface ReturnProps {
     // onAddId: (key: never) => void
 }
 
-export const useFilterIngredients = (): ReturnProps => {
+export const useFilterIngredients = (values: string[] = []): ReturnProps => {
     const [ingredients, setIngredients] = React.useState<Ingredient[]>([])
     const [loading, setLoading] = React.useState(true)
 
@@ -33,5 +33,10 @@ export const useFilterIngredients = (): ReturnProps => {
         fetchIngredients()
     },[])
 
+
+    // const setSelectedIngredients = (ids: string[]) => {
+    //     ids.forEach(selectedIds.add)
+    // }
+
     return {ingredients, loading, onAddId: toggle, selectedIngredients: selectedIds}
-}
+} 
