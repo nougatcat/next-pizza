@@ -8,13 +8,13 @@ type Item = FilterChecboxProps;
 interface Props {
     title: string;
     items: Item[];
-    defaultItems: Item[];
+    defaultItems?: Item[];
     limit?: number;
     loading: boolean;
     searchInputPlaceholder?: string;
     OnClickCheckbox?: (id: string) => void; //какие чекбоксы выбрали
     defaultValue?: string[];
-    selectedIds?: Set<string>;
+    selected?: Set<string>;
     name?: string;
     className?: string;
 }
@@ -28,8 +28,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
         loading, 
         OnClickCheckbox,
         name, 
-        defaultValue, 
-        selectedIds, 
+        selected, 
         className }
 ) => {
     const [showAll, setShowAll] = React.useState(false);
@@ -54,7 +53,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
     }
     const list = showAll 
     ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) 
-    : defaultItems.slice(0, limit); //лист включает в себя отфильтрованный с пом. поиска список элементов (или не отфильтрованный, если поле поиска пустое) при условии, что мы показываем их все
+    : (defaultItems || items).slice(0, limit); //лист включает в себя отфильтрованный с пом. поиска список элементов (или не отфильтрованный, если поле поиска пустое) при условии, что мы показываем их все
     ///
 
     return (
@@ -75,7 +74,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
                         text={item.text}
                         value={item.value}
                         endAdornment={item.endAdornment}
-                        checked={selectedIds?.has(item.value)}
+                        checked={selected?.has(item.value)}
                         name={name}
                         onCheckedChange={() => OnClickCheckbox?.(item.value)} // при каждом рендере передается эта функция со своим value (id игридиента), передаст тот id, на который кликнули
                     />
