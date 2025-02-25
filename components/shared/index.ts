@@ -1,4 +1,5 @@
 
+
 // этот файл чтобы можно можно было не делать несколько импортов для каждой компоненты
 export {Container} from './container'
 export {Header} from './header'
@@ -12,3 +13,5 @@ export {CheckboxFiltersGroup} from './checkbox-filters-group'
 export {ProductsGroupList} from './products-group-list'
 export {ProductCard} from './product-card'
 export {SearchInput} from './search-input'
+export {ProductImage} from './product-image'
+export {GroupVariants} from './group-variants'
