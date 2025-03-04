@@ -11,7 +11,7 @@ export const metadata: Metadata = { //заголовок для SEO, описа�
 
 export default function HomeLayout({
   children,
-  modal
+  modal, //по названию слота @modal
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode

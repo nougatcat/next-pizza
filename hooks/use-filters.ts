@@ -56,17 +56,30 @@ export const useFilters = (): ReturnProps => {
         }))
     }
 
-    return {
-        sizes,
-        pizzaTypes,
-        selectedIngredients,
-        prices,
+    // return {
+    //     sizes,
+    //     pizzaTypes,
+    //     selectedIngredients,
+    //     prices,
 
-        setSizes: toggleSizes,
-        setPizzaTypes: togglePizzaTypes,
-        setSelectedIngredients: toggleIngredients,
-        setPrices: updatePrice,
-    }
+    //     setSizes: toggleSizes,
+    //     setPizzaTypes: togglePizzaTypes,
+    //     setSelectedIngredients: toggleIngredients,
+    //     setPrices: updatePrice,
+    // }
+    return React.useMemo(
+        () => ({
+            sizes,
+            pizzaTypes,
+            selectedIngredients,
+            prices,
 
-
+            setSizes: toggleSizes,
+            setPizzaTypes: togglePizzaTypes,
+            setSelectedIngredients: toggleIngredients,
+            setPrices: updatePrice,
+        }),
+        [sizes, pizzaTypes, selectedIngredients, prices]
+    )
+//! без useMemo модальное окно не закрывается!
 }
