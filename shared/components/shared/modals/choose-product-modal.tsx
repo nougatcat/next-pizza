@@ -1,10 +1,7 @@
 'use client';
 
-import { Dialog, DialogContent } from '@/components/ui';
-
-import { cn } from '@/lib/utils';
-import { Product } from '@prisma/client';
-import { Title } from '../title';
+import { Dialog, DialogContent } from '@/shared/components/ui';
+import { cn } from '@/shared/lib/utils';
 import { useRouter } from 'next/navigation';
 import { ChooseProductForm } from '../choose-product-form';
 import { ProductWithRelations } from '@/@types/prisma';

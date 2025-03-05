@@ -1,4 +1,4 @@
-import { Container, GroupVariants, PizzaImage, Title } from "@/components/shared"
+import { Container, GroupVariants, PizzaImage, Title } from "@/shared/components/shared"
 import { prisma } from "@/prisma/prisma-client"
 import { notFound } from "next/navigation"
 

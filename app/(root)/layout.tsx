@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "../globals.css";
-import { Header } from "@/components/shared/header";
+import { Header } from "@/shared/components/shared/header";
 
 
 export const metadata: Metadata = { //заголовок для SEO, описание тоже
