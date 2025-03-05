@@ -81,5 +81,5 @@ export const useFilters = (): ReturnProps => {
         }),
         [sizes, pizzaTypes, selectedIngredients, prices]
     )
-//! без useMemo модальное окно не закрывается!
+//! без useMemo модальное окно продукта не закрывается!
 }
