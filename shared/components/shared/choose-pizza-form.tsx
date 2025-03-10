@@ -10,7 +10,7 @@ import { Button } from '../ui';
 import { GroupVariants } from './group-variants';
 import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from '@/shared/constants/pizza'
 import { IngredientItem } from './ingredient-item';
-
+import { calcTotalPizzaPrice } from '@/shared/lib';
 
 interface Props {
     imageUrl: string;
@@ -35,12 +35,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
     const [selectedIngredients,{toggle: addIngredient}] = useSet(new Set<number>([]))
 
-    // TODO: можно сделать чтобы при выборе несуществующего типа пиццы сбрасывалось на первый вариант. Сейчас в таком случае просто ставится цена 0 р и эта проблема решается через useEffect, но можно допилить код так, чтобы на секунду не всплывало 0 р
-    const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price || 0
-    const totalIngredientsPrice = ingredients.filter((ingredient) => selectedIngredients.has(ingredient.id)).reduce(
-        (acc, ingredient) => acc + ingredient.price, 0
-    ) // сумма цен выбранных ингредиентов
-    const totalPrice = pizzaPrice + totalIngredientsPrice
+    const totalPrice = calcTotalPizzaPrice(type, size, items, ingredients, selectedIngredients)
 
     const textDetails = `${size} см. ${mapPizzaType[type]} пицца`
 
@@ -54,11 +49,11 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         })
     }
 
-    const availablePizzas = items.filter((item) => item.pizzaType === type)
+    const filteredPizzasByType = items.filter((item) => item.pizzaType === type)
     const availablePizzaSizes = pizzaSizes.map((item) => ({
         name: item.name,
         value: item.value,
-        disabled: !availablePizzas.some((pizza) => Number(pizza.size) === Number(item.value))
+        disabled: !filteredPizzasByType.some((pizza) => Number(pizza.size) === Number(item.value))
         // отключает кнопку размера если нет такого размера у выбранного типа теста
         // т.е. сравнивается размер пиццы в бд с названием кнопки. 9:50 
     }))
