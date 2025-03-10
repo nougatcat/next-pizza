@@ -1,22 +1,24 @@
 // 'use client'; 
-
-import { cn } from '@/shared/lib/utils';
 import React from 'react';
+import { useSet } from 'react-use';
+import { Ingredient, ProductItem } from '@prisma/client';
+import { cn } from '@/shared/lib/utils';
+
 import { PizzaImage } from './pizza-image';
 import { Title } from './title';
 import { Button } from '../ui';
 import { GroupVariants } from './group-variants';
-import { PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from '@/shared/constants/pizza';
-import { Ingredient } from '@prisma/client';
+import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from '@/shared/constants/pizza'
 import { IngredientItem } from './ingredient-item';
-import { useSet } from 'react-use';
+
 
 interface Props {
     imageUrl: string;
     name: string;
     ingredients: Ingredient[];
-    items?: any[];
-    onClickAdd?: VoidFunction;
+    //items: ProductWithRelations['items']; //в качестве типа берем часть items из этого типа т.е. ProductItem[]. Вроде можно просто написать тип ProductItem[]
+    items: ProductItem[]
+    onClickAddCart?: VoidFunction;
     className?: string;
 }
 
@@ -25,7 +27,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     items,
     imageUrl,
     ingredients,
-    onClickAdd,
+    onClickAddCart,
     className
 }) => {
     const [size, setSize] = React.useState<PizzaSize>(20)
@@ -33,9 +35,42 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
     const [selectedIngredients,{toggle: addIngredient}] = useSet(new Set<number>([]))
 
+    // TODO: можно сделать чтобы при выборе несуществующего типа пиццы сбрасывалось на первый вариант. Сейчас в таком случае просто ставится цена 0 р и эта проблема решается через useEffect, но можно допилить код так, чтобы на секунду не всплывало 0 р
+    const pizzaPrice = items.find((item) => item.pizzaType === type && item.size === size)?.price || 0
+    const totalIngredientsPrice = ingredients.filter((ingredient) => selectedIngredients.has(ingredient.id)).reduce(
+        (acc, ingredient) => acc + ingredient.price, 0
+    ) // сумма цен выбранных ингредиентов
+    const totalPrice = pizzaPrice + totalIngredientsPrice
 
-    const textDetails = 'шаблон 30 см, традиционное тесто 30'
-    const totalPrice = 228
+    const textDetails = `${size} см. ${mapPizzaType[type]} пицца`
+
+    // TODO: сделать реальный хендлер при клике "добавить в корзину"
+    const handleClickAdd = () => {
+        onClickAddCart?.()
+        console.log({
+            size,
+            type,
+            ingredients: selectedIngredients
+        })
+    }
+
+    const availablePizzas = items.filter((item) => item.pizzaType === type)
+    const availablePizzaSizes = pizzaSizes.map((item) => ({
+        name: item.name,
+        value: item.value,
+        disabled: !availablePizzas.some((pizza) => Number(pizza.size) === Number(item.value))
+        // отключает кнопку размера если нет такого размера у выбранного типа теста
+        // т.е. сравнивается размер пиццы в бд с названием кнопки. 9:50 
+    }))
+
+    React.useEffect(() => {
+        const isAvailableSize = availablePizzaSizes?.find((item) => Number(item.value) === size && !item.disabled) // существует ли пицца выбранного размера
+        
+        const availableSize = availablePizzaSizes?.find((item) => !item.disabled)
+        if (!isAvailableSize && availableSize) { //если нет доступного размера и есть другой доступный, то переместить на первый доступный
+            setSize(Number(availableSize.value) as PizzaSize)
+        }
+    }, [type]) //следи за изменением типа теста, чтобы в случае недоступности размера пиццы переместить кнопку на первый доступный размер
 
     return (
         <div className={cn(className, 'flex flex-1')}>
@@ -46,7 +81,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
                 <p className='text-gray-400'>{textDetails}</p>
 
                 <div className='flex flex-col gap-4 mt-5'>
-                    <GroupVariants items={pizzaSizes} selectedValue={String(size)}
+                    <GroupVariants items={availablePizzaSizes} selectedValue={String(size)}
                         onClick={value => setSize(Number(value) as PizzaSize)} />
                     <GroupVariants items={pizzaTypes} selectedValue={String(type)}
                         onClick={value => setType(Number(value) as PizzaType)} />
@@ -71,6 +106,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
                 <Button
                     className='h-[55px] px-10 text-base rounded-[18px] w-full mt-10'
+                    onClick={handleClickAdd}
                 > Добавить в корзину за {totalPrice} ₽
                 </Button>
             </div>
