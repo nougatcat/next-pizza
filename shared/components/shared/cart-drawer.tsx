@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-
 import {
     Sheet,
     SheetClose,
@@ -12,6 +12,8 @@ import {
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui';
 import Link from 'next/link';
+import { CartDrawerItem } from './cart-drawer-item';
+import { getCartItemDetails } from '@/shared/lib';
 
 interface Props {
     className?: string;
@@ -29,6 +31,26 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                 </SheetHeader>
 
                 {/* Items */}
+                <div className='-mx-6 mt-5 overflow-auto flex-1'>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'}
+                            details={getCartItemDetails(2,30,[{name:'Цыпленок'}, {name:'Сыр'}])}
+                            name={'Шаблонная пицца'}
+                            price={419}
+                            quantity={1} />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:233x233/11EE7D61304FAF5A98A6958F2BB2D260.webp'}
+                            details={getCartItemDetails(2,30,[{name:'Цыпленок'}, {name:'Сыр'}])}
+                            name={'Шаблонная пицца'}
+                            price={419}
+                            quantity={1} />
+                    </div>
+                </div>
 
                 <SheetFooter className='-mx-6 bg-white p-8'>
                     <div className='w-full'>
