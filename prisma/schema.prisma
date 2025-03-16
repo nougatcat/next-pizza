@@ -85,7 +85,7 @@ model Ingredient {
 model Cart {
     id Int @id @default(autoincrement())
 
-    itemds CartItem[]
+    items CartItem[]
 
     user User? @relation(fields:[userId], references: [id]) //. ? потому что может быть незареганный юзер
     userId Int? @unique
