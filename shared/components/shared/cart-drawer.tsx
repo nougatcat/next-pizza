@@ -24,7 +24,7 @@ interface Props {
 export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children, className }) => {
 
     //? хук из zustand для получения метода стейта корзины
-    const { totalAmount, items, fetchCartItems } = useCartStore();
+    const { totalAmount, items, fetchCartItems, updateItemQuantity } = useCartStore();
     
     // ! код такого формата может вызвать бесконечный луп. Учесть на будущее
     // const [totalAmount, fetchCartItems, items] = useCartStore(state => [
@@ -37,6 +37,11 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
     React.useEffect(() => {
         fetchCartItems()
     }, [])
+
+    const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+        const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+        updateItemQuantity(id, newQuantity)
+    }
 
     return (
         <Sheet>
@@ -64,7 +69,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                                         : ''}
                                     name={item.name}
                                     price={item.price}
-                                    quantity={item.quantity} />
+                                    quantity={item.quantity}
+                                    onClickCountButton={(type) => onClickCountButton(item.id,item.quantity,type)}
+                                    />
                             </div>
                         ))
                     }
