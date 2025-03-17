@@ -9,3 +9,10 @@ export const getCart = async (): Promise<CartDTO> => {
 export const updateItemQuantity = async (itemId: number, quantity: number): Promise<CartDTO> => {
     return (await axiosInstance.patch<CartDTO>('/cart/' + itemId, {quantity})).data
 } 
+
+//удаляет вещь из корзины
+export const removeCartItem = async (id: number): Promise<CartDTO> => {
+    // const {data} = await axiosInstance.delete<CartDTO>('/cart/' + id)
+    // return data эти две строчки делают то же самое, что третья строчка
+    return (await axiosInstance.delete<CartDTO>('/cart/' + id)).data
+}

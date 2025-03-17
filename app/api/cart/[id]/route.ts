@@ -3,6 +3,7 @@ import { updateCartTotalAmount } from "@/shared/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 //PATCH отправляет запрос на изменение поля в виде измененного фрагмента этого поля
+//! на 12:08 описание запроса в постмане
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const id = Number(params.id)
@@ -48,4 +49,37 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 } 
 
 
-//! на 12:08 описание запроса в постмане
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+    try {
+        const id = Number(params.id)
+        const token = req.cookies.get('cartToken')?.value
+
+        if (!token) {
+            return NextResponse.json({ error: 'Cart item was not found' })
+        }
+        
+        const cartItem = await prisma.cartItem.findFirst({
+            where: {
+                id,
+            },
+        })
+
+        if (!cartItem) {
+            return NextResponse.json({ error: 'Cart item was not found' })
+        }
+
+        await prisma.cartItem.delete({
+            where: {
+                id,
+            }
+        })
+
+        const updatedUserCart = await updateCartTotalAmount(token)
+
+        return NextResponse.json(updatedUserCart)
+
+    } catch (error) {
+        console.log('[CART_DELETE] Server error', error);
+        return NextResponse.json({ message: 'Не удалось удалить корзину' }, { status: 500 })
+    }
+}
