@@ -17,6 +17,7 @@ interface Props {
     name: string;
     ingredients: Ingredient[];
     //items: ProductWithRelations['items']; //в качестве типа берем часть items из этого типа т.е. ProductItem[]. Вроде можно просто написать тип ProductItem[]
+    loading?: boolean
     items: ProductItem[]
     onSubmit: (itemId: number, ingredients: number[]) => void
     className?: string;
@@ -27,6 +28,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     items,
     imageUrl,
     ingredients,
+    loading,
     onSubmit,
     className
 }) => {
@@ -45,7 +47,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     const { totalPrice, textDetails }
         = getPizzaDetails(type, size, items, ingredients, selectedIngredients)
 
-    // хендлер при клике "добавить в корзину"
+    // хендлер при клике "добавить в корзину". Обрати внимание, что это коллбек
     const handleClickAdd = () => {
         if (currentItemId) {
             onSubmit(currentItemId, Array.from(selectedIngredients))
@@ -85,6 +87,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
                 </div>
 
                 <Button
+                    loading={loading}
                     className='h-[55px] px-10 text-base rounded-[18px] w-full mt-10'
                     onClick={handleClickAdd}
                 > Добавить в корзину за {totalPrice} ₽
