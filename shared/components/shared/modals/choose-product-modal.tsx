@@ -7,6 +7,7 @@ import { ChooseProductForm } from '../choose-product-form';
 import { ProductWithRelations } from '@/@types/prisma';
 import { ChoosePizzaForm } from '../choose-pizza-form';
 import { useCartStore } from '@/shared/store';
+import toast from 'react-hot-toast';
 
 interface Props {
     product: ProductWithRelations
@@ -25,11 +26,17 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
         })
     }
 
-    const onAddPizza = (productItemId: number, ingredients: number[]) => {
-        addCartItem({
-            productItemId,
-            ingredients
-        })
+    const onAddPizza = async (productItemId: number, ingredients: number[]) => {
+        try {
+            await addCartItem({
+                productItemId,
+                ingredients
+            })
+            toast.success('Пицца добавлена в корзину')
+        } catch (error) {
+            toast.error('Не удалось добавить пиццу в корзину')
+            console.error(error)
+        }
     }
 
     return (
@@ -51,11 +58,11 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
                             onSubmit={onAddPizza}
                         />
                     ) : <ChooseProductForm
-                        imageUrl={product.imageUrl} 
+                        imageUrl={product.imageUrl}
                         name={product.name}
                         onSubmit={onAddProduct}
                         price={firstItem.price}
-                        />
+                    />
                 }
             </DialogContent>
         </Dialog>
