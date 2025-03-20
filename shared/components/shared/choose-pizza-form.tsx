@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import React from 'react';
 import { Ingredient, ProductItem } from '@prisma/client';
 import { cn } from '@/shared/lib/utils';
@@ -18,7 +18,7 @@ interface Props {
     ingredients: Ingredient[];
     //items: ProductWithRelations['items']; //в качестве типа берем часть items из этого типа т.е. ProductItem[]. Вроде можно просто написать тип ProductItem[]
     items: ProductItem[]
-    onClickAddCart?: VoidFunction;
+    onSubmit: (itemId: number, ingredients: number[]) => void
     className?: string;
 }
 
@@ -27,23 +27,29 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     items,
     imageUrl,
     ingredients,
-    onClickAddCart,
+    onSubmit,
     className
 }) => {
-    const { size, type, selectedIngredients, availableSizes, setSize, setType, addIngredient }
+    const {
+        size,
+        type,
+        selectedIngredients,
+        availableSizes,
+        currentItemId,
+        setSize,
+        setType,
+        addIngredient
+    }
         = usePizzaOptions(items)
 
-    const { totalPrice, textDetails } 
+    const { totalPrice, textDetails }
         = getPizzaDetails(type, size, items, ingredients, selectedIngredients)
 
-    // TODO: сделать реальный хендлер при клике "добавить в корзину"
+    // хендлер при клике "добавить в корзину"
     const handleClickAdd = () => {
-        onClickAddCart?.()
-        console.log({
-            size,
-            type,
-            ingredients: selectedIngredients
-        })
+        if (currentItemId) {
+            onSubmit(currentItemId, Array.from(selectedIngredients))
+        }
     }
 
     return (

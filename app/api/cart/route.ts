@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         if (findCartItem) {
             await prisma.cartItem.update({
                 where: {
-                    id: findCartItem.cartId
+                    id: findCartItem.id
                 },
                 data: {
                     quantity: findCartItem.quantity + 1,
@@ -95,8 +95,6 @@ export async function POST(req: NextRequest) {
                 }
             })
         }
-
-
 
         const updatedUserCart = await updateCartTotalAmount(token)
         const resp = NextResponse.json(updatedUserCart)
