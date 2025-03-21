@@ -38,7 +38,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
                 selected={filters.pizzaTypes}
                 items={[
                     { text: 'Тонкое', value: '1' },
-                    { text: 'Толстое', value: '2' },
+                    { text: 'Традиционное', value: '2' },
                 ]}
             />
             <CheckboxFiltersGroup

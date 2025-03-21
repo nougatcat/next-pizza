@@ -56,17 +56,6 @@ export const useFilters = (): ReturnProps => {
         }))
     }
 
-    // return {
-    //     sizes,
-    //     pizzaTypes,
-    //     selectedIngredients,
-    //     prices,
-
-    //     setSizes: toggleSizes,
-    //     setPizzaTypes: togglePizzaTypes,
-    //     setSelectedIngredients: toggleIngredients,
-    //     setPrices: updatePrice,
-    // }
     return React.useMemo(
         () => ({
             sizes,
@@ -81,5 +70,5 @@ export const useFilters = (): ReturnProps => {
         }),
         [sizes, pizzaTypes, selectedIngredients, prices]
     )
-//! без useMemo модальное окно продукта не закрывается!
+//! без useMemo модальное окно продукта не закрывается! - потому что иначе каждый раз возвращается новый объект при закрытии
 }
