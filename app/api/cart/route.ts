@@ -67,10 +67,15 @@ export async function POST(req: NextRequest) {
             where: {
                 cartId: userCart.id,
                 productItemId: data.productItemId, //id вариации товара (т.е. какой размер и какое тесто)
-                ingredients: { every: { id: { in: data.ingredients } } },
-                //? чтобы в корзину к определенному товару добавить какие-то ингредиенты,
-                // надо проверить, что каждый id ингредиента из этого cartItem есть в data.ingredients
-                // это необходимо чтобы второй добавленный с такими же ингредиентами товар добавился в корзину как второй, а не как отдельный
+                ingredients: {
+                    every: {
+                        id: { in: data.ingredients }
+                    },
+                    some: {} // ! это БАГФИКС / костыль - без него пиццы с разными ингредиентами стакаются вместе в корзине 
+                }
+            },
+            include: {
+                ingredients: true
             }
         })
 

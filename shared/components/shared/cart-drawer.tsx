@@ -55,7 +55,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
             <SheetContent className='flex flex-col justify-between pb-0 bg-[#F4F1EE]'>
                 <SheetHeader>
                     <SheetTitle>
-                        В корзине <span className='font-bold'>{items.length} товара</span>
+                        В корзине <span className='font-bold'>
+                            {
+                                items.map((item) => item.quantity).reduce((a, b) => a + b, 0)
+                            } единиц товара</span>
                     </SheetTitle>
                 </SheetHeader>
 
