@@ -1,5 +1,4 @@
 
-
 // этот файл чтобы можно можно было не делать несколько импортов для каждой компоненты
 export {Container} from './container'
 export {Header} from './header'
@@ -27,3 +26,4 @@ export {CheckoutItemDetails} from './checkout-item-details'
 export {CartDrawerItem} from './cart-drawer-item'
 export {CheckoutItem} from './checkout-item'
 export {CheckoutItemSkeleton} from './checkout-item-skeleton'
+export {CheckoutSidebar} from './checkout-sidebar'

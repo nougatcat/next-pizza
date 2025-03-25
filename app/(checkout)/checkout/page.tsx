@@ -1,8 +1,20 @@
-import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
-import { Button, Input, Textarea } from "@/shared/components/ui";
-import { ArrowRight, Package, Percent, Truck } from "lucide-react";
+'use client'
+import { CheckoutItem, CheckoutSidebar, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import { Input, Textarea } from "@/shared/components/ui";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
+import { useCart } from "@/shared/hooks";
+import { getCartItemDetails } from "@/shared/lib";
+
+
+
 
 export default function CheckoutPage() {
+    const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart()
+    const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+        const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+        updateItemQuantity(id, newQuantity)
+    }
+
     return (
         <Container className='mt-1'>
             <Title text='Оформление заказа' className='font-extrabold mb-8 text-[36px]' />
@@ -12,22 +24,36 @@ export default function CheckoutPage() {
                 <div className="flex flex-col gap-10 flex-1 mb-20">
                     <WhiteBlock title='1. Корзина'>
                         <div className="flex flex-col gap-5">
-                            <CheckoutItem
+                            {
+                                items.map((item) => (
+                                    <CheckoutItem
+                                        key={item.id}
+                                        id={item.id}
+                                        imageUrl={item.imageUrl}
+                                        details={
+                                            getCartItemDetails(
+                                                item.ingredients,
+                                                item.pizzaType as PizzaType,
+                                                item.pizzaSize as PizzaSize
+                                            )
+                                        }
+                                        name={item.name}
+                                        price={item.price}
+                                        quantity={item.quantity}
+                                        disabled={item.disabled}
+                                        onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                                        onClickRemove={() => removeCartItem(item.id)}
+                                    />
+                                ))
+                            }
+                            {/* <CheckoutItem
                                 id={1}
                                 imageUrl={'https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp'}
                                 details={'шаблонные детали'}
                                 name={'шаблонная пицца'}
                                 price={500}
                                 quantity={10}
-                            />
-                            <CheckoutItem
-                                id={1}
-                                imageUrl={'https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp'}
-                                details={'шаблонные детали'}
-                                name={'шаблонная пицца'}
-                                price={500}
-                                quantity={10}
-                            />
+                            /> */}
                         </div>
                     </WhiteBlock>
                     <WhiteBlock title='2. Персональные данные' className='mb-8'>
@@ -53,35 +79,7 @@ export default function CheckoutPage() {
 
                 {/* right side */}
                 <div className="w-[450px]">
-                    <WhiteBlock className="p-6 sticky top-4">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-xl">Итого:</span>
-                            <span className="text-[34px] font-extrabold">10000 ₽</span>
-                        </div>
-                        <CheckoutItemDetails title={
-                            <div className="flex items-center">
-                                <Package className='mr-2 text-gray-300' size={18} />
-                                Стоимость товаров:
-                            </div>
-                        } value='9000 ₽' />
-                        <CheckoutItemDetails title={
-                            <div className="flex items-center">
-                                <Percent className='mr-2 text-gray-300' size={18} />
-                                Налоги:
-                            </div>
-                        } value='900 ₽' />
-                        <CheckoutItemDetails title={
-                            <div className="flex items-center">
-                                <Truck className='mr-2 text-gray-300' size={18} />
-                                Доставка:
-                            </div>
-                        } value='100 ₽' />
-
-                        <Button type='submit' className='w-full mt-6'>
-                            Перейти к оплате
-                            <ArrowRight className='w-5 ml-2' />
-                        </Button>
-                    </WhiteBlock>
+                    <CheckoutSidebar totalAmount={totalAmount} />
                 </div>
             </div>
         </Container>

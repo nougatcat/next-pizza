@@ -1,4 +1,5 @@
 import { Container, Header } from "@/shared/components/shared"
+import "../globals.css";
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
     description: "Сайт пиццерии Next Pizza",
 }
 
-export default function CheckoutLayout({ children,}: {children: React.ReactNode}) {
+export default function CheckoutLayout({ children}: {children: React.ReactNode}) {
     return (
         <main className="min-h-screen bg-[#F4F1EE]">
             <Container>
