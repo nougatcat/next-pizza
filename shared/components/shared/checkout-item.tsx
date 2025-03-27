@@ -35,7 +35,8 @@ export const CheckoutItem: React.FC<Props> = ({
 
             <div className='flex items-center gap-5 ml-20'>
                 <CartItemDetails.CountButton onClick={onClickCountButton} value={quantity} />
-                <button onClick={onClickRemove}>
+                <button type='button' onClick={onClickRemove}>
+                    {/* //! если не прописать type='button', то кнопка будет постоянно дергать форму */}
                     <X className='text-gray-400 cursor-pointer hover:text-gray-600' size={20}></X>
                 </button>
             </div>

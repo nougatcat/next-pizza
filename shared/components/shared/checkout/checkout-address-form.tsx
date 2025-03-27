@@ -13,7 +13,7 @@ interface Props {
 export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
     const { control } = useFormContext()
     return (
-        <WhiteBlock title='3. Адрес доставки' className='mb-8'>
+        <WhiteBlock title='3. Адрес доставки' className={className}>
             <div className="flex flex-col gap-5">
                 {/* <Input name="address" className="text-base" placeholder="Введите адрес..." /> */}
                 {/* оборачивание в контроллер нужно чтобы addressinput c react-dadata правильно валидировался */}

@@ -3,8 +3,8 @@ import React from 'react';
 
 interface Props {
     className?: string;
-    title?: React.ReactNode; //Такая типизация нужно потому что текст вместе с иконкой (но можно и без нее)
-    value?: string;
+    title?: React.ReactNode; //Такая типизация нужно потому что текст вместе с иконкой (но может быть и без нее, если только без нее то пишем стринг)
+    value?: React.ReactNode;
 }
 
 export const CheckoutItemDetails: React.FC<Props> = ({ title, value, className }) => {
