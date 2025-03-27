@@ -13,6 +13,7 @@ import {
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
+import { createOrder } from "@/app/actions";
 
 
 export default function CheckoutPage() {
@@ -33,6 +34,7 @@ export default function CheckoutPage() {
     //! переделать под настоящий сабмит
     const onSubmit = (data: CheckoutFormValues) => {
         console.log(data)
+        createOrder(data)
     }
 
     const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
