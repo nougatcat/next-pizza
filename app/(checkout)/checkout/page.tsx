@@ -1,11 +1,18 @@
 'use client'
-import { CheckoutSidebar, Container, Title } from "@/shared/components/shared";
+
 import { useCart } from "@/shared/hooks";
-import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from "@/shared/components/shared/checkout";
+import { 
+    CheckoutSidebar, 
+    Container, 
+    Title, 
+    CheckoutAddressForm, 
+    CheckoutCart, 
+    CheckoutPersonalForm 
+} from "@/shared/components";
 
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { checkoutFormSchema, CheckoutFormValues } from "@/shared/components/shared/checkout/checkout-form-schema";
+import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
 
 
 export default function CheckoutPage() {
