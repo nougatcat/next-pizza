@@ -28,6 +28,7 @@ export default function CheckoutPage() {
         }
     })
 
+    //! переделать под настоящий сабмит
     const onSubmit = (data: CheckoutFormValues) => {
         console.log(data)
     }
