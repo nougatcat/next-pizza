@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 .env
 
-/shared/constants/dadata-token.ts
+/shared/constants/api-tokens.ts
