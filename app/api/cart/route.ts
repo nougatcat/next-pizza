@@ -8,7 +8,7 @@ import { updateCartTotalAmount } from "@/shared/lib";
 //получаем корзину
 export async function GET(req: NextRequest) {
     try {
-        //? стандартный токен 111111 для тестового юзера захардкожен в куки через инструмент разработчика
+        //? стандартный токен 111111 для тестового юзера можно захардкодить в куки через инструмент разработчика
         const token = req.cookies.get('cartToken')?.value
 
         if (!token) {
