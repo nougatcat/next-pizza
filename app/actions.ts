@@ -2,7 +2,9 @@
 'use server';
 
 import { prisma } from "@/prisma/prisma-client";
+import { PayOrderTemplate } from "@/shared/components";
 import { CheckoutFormValues } from "@/shared/constants";
+import { sendEmail } from "@/shared/lib";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
 
@@ -73,9 +75,14 @@ export async function createOrder(data: CheckoutFormValues) {
             }
         })
         // TODO: Сделать создание ссылки оплаты
-    } catch (err) {
 
+        await sendEmail(data.email, 'Next Pizza / Оплатите заказ №' + order.id, PayOrderTemplate({
+            orderId: order.id,
+            totalAmount: order.totalAmount,
+            paymentUrl: 'https://www.youtube.com/watch?v=GUwizGbY4cc'
+        }))
+    } catch (err) {
+        console.log('[CreateOrder] Server error', err)
     }
 }
 
-//! тут еще нужно прописать return на url с платежным сервисом
