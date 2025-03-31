@@ -54,8 +54,8 @@ export async function createOrder(data: CheckoutFormValues) {
                 comment: data.comment,
                 totalAmount: userCart.totalAmount, //! записывается цена без учета налога и доставки
                 status: OrderStatus.PENDING,
-                // items: JSON.stringify(userCart.items) //! Зачем тут json stringify? Он делает items строкой, а в бд ждут массив
-                items: userCart.items
+                items: JSON.stringify(userCart.items) //! json stringify делает items строкой, чтобы в письме потом спарсить ее
+                // items: userCart.items
             },
         })
 

@@ -12,7 +12,6 @@ interface Props {
 
 export const CartButton: React.FC<Props> = ({ className }) => {
     const { totalAmount, items, loading } = useCartStore()
-    console.log(items)
     return (
         <CartDrawer>
             <Button loading={loading} className={cn('group relative',{'w-[105px]': loading}, className)}> {/* group - общий стиль (нужно для анимации смены корзины на стрелку) */}
