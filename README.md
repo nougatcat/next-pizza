@@ -24,6 +24,8 @@ npm run prisma:studio
 npm run prisma:generate
 # prisma seed - для тестовых данных
 npm run prisma:seed
+# localtunnel для ответов с юкассы
+lt --port 3000
 ```
 Figma-дизайн: https://www.figma.com/design/cYz4fOSK74EJoqHxoNr1hT/Next-Pizza
 
