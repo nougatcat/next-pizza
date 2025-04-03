@@ -32,3 +32,4 @@ export {ErrorText} from './error-text'
 export * from './form'
 export * from './checkout'
 export * from './email-templates'
+export { Providers } from './providers';
