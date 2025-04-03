@@ -13,8 +13,5 @@ const authOptions = {
 }
 
 const handler = NextAuth(authOptions)
-
 export { handler as GET, handler as POST }
-
-
-// export default NextAuth(authOptions) или так или handler
+// export default NextAuth(authOptions) //! так нельзя в App Router

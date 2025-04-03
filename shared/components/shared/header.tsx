@@ -10,6 +10,7 @@ import { SearchInput } from './search-input';
 import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 interface Props {
     className?: string;
@@ -18,6 +19,9 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, className }) => {
+    // Передача контекста авторизации
+    const { data: session } = useSession()
+    // console.log(session)
     // После оплаты покажет уведомление поверх хэдера
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -48,7 +52,14 @@ export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, clas
 
                 {/* Правая часть */}
                 <div className="flex items-center gap-3">
-                    <Button variant="outline" className='flex items-center gap-1'>
+                    <Button 
+                        onClick = {() => signIn('github', {
+                            callbackUrl: '/',
+                            redirect: true,
+                        })}
+                        variant="outline" 
+                        className='flex items-center gap-1'
+                    >
                         <User size={16} />
                         Войти
                     </Button>
