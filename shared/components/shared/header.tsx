@@ -3,14 +3,13 @@ import { cn } from '@/shared/lib/utils';
 import React from 'react';
 import { Container } from './container';
 import Image from 'next/image';
-import { Button } from '../ui';
-import { User } from 'lucide-react';
 import Link from 'next/link';
 import { SearchInput } from './search-input';
 import { CartButton } from './cart-button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { ProfileButton } from './profile-button';
+import { AuthModal } from './modals';
 
 interface Props {
     className?: string;
@@ -19,9 +18,7 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, className }) => {
-    // Передача контекста авторизации
-    const { data: session } = useSession()
-    // console.log(session)
+    const [openAuthModal, setOpenAuthModal] = React.useState(false)
     // После оплаты покажет уведомление поверх хэдера
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -52,17 +49,8 @@ export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, clas
 
                 {/* Правая часть */}
                 <div className="flex items-center gap-3">
-                    <Button 
-                        onClick = {() => signIn('github', {
-                            callbackUrl: '/',
-                            redirect: true,
-                        })}
-                        variant="outline" 
-                        className='flex items-center gap-1'
-                    >
-                        <User size={16} />
-                        Войти
-                    </Button>
+                    <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+                    <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
                     {hasCart && <CartButton />}
                 </div>
             </Container>
