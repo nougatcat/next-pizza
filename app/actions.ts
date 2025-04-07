@@ -140,3 +140,30 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
         throw err;
     }
 }
+
+export async function registerUser(body: Prisma.UserCreateInput) {
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                email: body.email,
+            }
+        })
+
+        if (user) {
+            if (!user.verified) {
+                throw new Error('Почта не подтверждена');
+            }
+            throw new Error('Пользователь с такой почтой уже существует');
+        }
+
+        const createUser = await prisma.user.create({
+            data: {
+                fullName: body.fullName,
+                email: body.email,
+                password: hashSync(body.password,10)
+            }
+        })
+    } catch (err) {
+        console.log('Error [REGISTER_USER]', err)
+    }
+}
