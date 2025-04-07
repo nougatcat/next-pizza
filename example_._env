@@ -27,3 +27,7 @@ GITHUB_SECRET=
 
 NEXTAUTH_SECRET=
 # берется из головы разработчика. Нужно для корректного создания jwt токена
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+# берется из console.cloud.google.com/apis/dashboard

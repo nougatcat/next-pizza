@@ -60,7 +60,6 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
                     >
                         <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="google (gmail)" className='w-6 h-6' />
                         Google/Gmail
-                        {/* // TODO: добавить вход через гугл */}
                     </Button>
                 </div>
 
