@@ -1,12 +1,12 @@
 import { prisma } from './../../../../prisma/prisma-client';
 //? Эта директория и этот файл написаны по примеру из документации NextAuth
 
-import NextAuth from "next-auth"
+import NextAuth, { AuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare, hashSync } from 'bcrypt';
 import { UserRole } from '@prisma/client';
-const authOptions = {
+export const authOptions: AuthOptions = {
     providers: [
         GitHubProvider({
             clientId: process.env.GITHUB_ID || '',
@@ -54,7 +54,7 @@ const authOptions = {
                 }
 
                 return {
-                    id: String(findUser.id),
+                    id: findUser.id,
                     email: findUser.email,
                     name: findUser.fullName,
                     role: findUser.role
@@ -114,6 +114,7 @@ const authOptions = {
             }
         },
         async jwt({ token }) { //находим есть ли в бд такой емаил
+            if (!token.email) return token
             const findUser = await prisma.user.findFirst({
                 where: {
                     email: token.email

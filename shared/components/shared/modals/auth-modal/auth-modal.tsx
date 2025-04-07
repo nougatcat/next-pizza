@@ -1,4 +1,4 @@
-
+'use client'
 import { Button } from '@/shared/components/ui';
 import { Dialog, DialogContent } from '@/shared/components/ui/dialog';
 import { signIn } from 'next-auth/react';
