@@ -2,7 +2,7 @@
 'use server';
 
 import { prisma } from "@/prisma/prisma-client";
-import { PayOrderTemplate } from "@/shared/components";
+import { PayOrderTemplate, VerificationUserTemplate } from "@/shared/components";
 import { CheckoutFormValues } from "@/shared/constants";
 import { createPayment, sendEmail } from "@/shared/lib";
 import { getUserSession } from "@/shared/lib/get-user-session";
@@ -156,13 +156,28 @@ export async function registerUser(body: Prisma.UserCreateInput) {
             throw new Error('Пользователь с такой почтой уже существует');
         }
 
-        const createUser = await prisma.user.create({
+        const createdUser = await prisma.user.create({
             data: {
                 fullName: body.fullName,
                 email: body.email,
                 password: hashSync(body.password,10)
             }
         })
+
+        // генерим код подтверждения почты
+        const code = Math.floor(10000 + Math.random() * 90000).toString()
+
+        await prisma.verificationCode.create({
+            data: {
+                code,
+                userId: createdUser.id
+            }
+        })
+
+        await sendEmail(createdUser.email, 
+            'Next Pizza / 📝 Подтверждение регистрации', VerificationUserTemplate({
+                code
+        }))
     } catch (err) {
         console.log('Error [REGISTER_USER]', err)
     }
