@@ -22,12 +22,25 @@ export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, clas
     // После оплаты покажет уведомление поверх хэдера
     const searchParams = useSearchParams()
     const router = useRouter()
+
     React.useEffect(() => {
+        let toastMessage = '';
+
         if (searchParams.has('paid')) {
-            toast.success('Заказ успешно оплачен! Информация отправлена на почту.')
+            toastMessage = 'Заказ успешно оплачен! Информация отправлена на почту.'
+        }
+
+        if (searchParams.has('verified')) {
+            toastMessage = 'Почта успешно подтверждена!'
+        }
+
+        if (toastMessage) {
+            toast.success(toastMessage)
             router.push('/')
         }
     },[])
+
+
 
     return (
         <header className={cn('border-b', className)}>
