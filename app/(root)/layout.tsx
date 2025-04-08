@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "../globals.css";
 import { Header } from "@/shared/components/shared/header";
+import { Suspense } from "react";
 
 
 export const metadata: Metadata = { //заголовок для SEO, описание тоже
@@ -18,7 +19,10 @@ export default function HomeLayout({
 }>) {
   return (
     <main className="min-h-screen">
-      <Header />
+      <Suspense>
+        <Header />
+        {/* //? Suspense нужен чтобы компонент Header с useSearchParams не вызывал ошибок при загрузке страницы. в саспенс можно прописать фоллбек для прелоадера */}
+      </Suspense>
       {children}
       {modal}
     </main>

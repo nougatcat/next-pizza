@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
-    const { control } = useFormContext()
+    const { control } = useFormContext() //use client используется из-за этого хука
     return (
         <WhiteBlock title='3. Адрес доставки' className={className}>
             <div className="flex flex-col gap-5">

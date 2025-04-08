@@ -20,7 +20,7 @@ bun dev
 npm run prisma:push
 # prisma studio
 npm run prisma:studio
-# prisma generate - обновить типизацию без обновления бд (вместо пуш)
+# prisma generate | postinstall - обновить типизацию без обновления бд (вместо пуш)
 npm run prisma:generate
 # prisma seed - для тестовых данных
 npm run prisma:seed
