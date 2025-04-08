@@ -41,8 +41,8 @@ export const Stories: React.FC<Props> = ({ className }) => {
         <Container className={cn('flex items-center justify-between gap-2 my-10', className)}>
             {/* если сторисов нет, выводим скелетоны */}
             {stories.length === 0 &&
-                [...Array(6)].map((_, index) => (
-                    <div key={index} className='w-[200px] h-[250px] bg-gray-200 rounded-md animate-pulse' />
+                [...Array(8)].map((_, index) => (
+                    <div key={index} className='w-[160px] h-[200px] bg-gray-200 rounded-md animate-pulse' />
                 ))
             }
             {stories.map((story) => (
@@ -50,8 +50,8 @@ export const Stories: React.FC<Props> = ({ className }) => {
                     key={story.id}
                     onClick={() => onClickStory(story)}
                     className='rounded-md cursor-pointer'
-                    height={250}
-                    width={200}
+                    height={200}
+                    width={160}
                     src={story.previewImageUrl}
                 />
             ))}
@@ -74,7 +74,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
                         />
                     </div>
                 </div>
-                // ! только первый сторис имеет в бд story-items, поэтому кликаться будет только первый, пока не добавишь еще элементы в бд
+                // ! только первые сторис имеют в бд story-items, поэтому кликаться будут только они, пока не добавишь еще элементы в бд
             }
         </Container>
     </>
