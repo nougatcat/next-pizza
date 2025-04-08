@@ -16,7 +16,7 @@ export const TopBar: React.FC<Props> = ({ categories, className }) => {
        {/* //sticky нужен чтобы при скролле меню не пропадало */}
       <Container className='flex items-center justify-between'>
         <Categories items={categories}/>
-        <SortPopup />
+        {/* <SortPopup /> //! Компонента-декорация */}
       </Container>
     </div>
   );

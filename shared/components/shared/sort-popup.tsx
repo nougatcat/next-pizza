@@ -18,3 +18,5 @@ export const SortPopup: React.FC<Props> = ({ className }) => {
     </div>
   );
 };
+
+// TODO: сделать настоящую сортировку

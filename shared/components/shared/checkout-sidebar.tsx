@@ -4,8 +4,13 @@ import { CheckoutItemDetails } from './checkout-item-details';
 import { ArrowRight, Package, Percent, Truck } from 'lucide-react';
 import { Button, Skeleton } from '../ui';
 
-const VAT = 10; // НДС
-const DELIVERY_PRICE = 250;
+// const VAT = 10; // НДС
+// const DELIVERY_PRICE = 250;
+//! НДС и стоимость доставки убраны, т.к. они все равно не учитываются на уровне бд и юмани
+// TODO: Сделать чтобы цена доставки и и ндс учитывались на уровне бд и юмани
+//! не забывай, что чтобы работал юмани, в настройках юмани надо ввести url тестового магазина
+const VAT = 0; // НДС
+const DELIVERY_PRICE = 0;
 
 interface Props {
     totalAmount: number;
