@@ -1,4 +1,4 @@
-import { TopBar, Container, Title, ProductsGroupList, Filters } from "@/shared/components/shared";
+import { TopBar, Container, Title, ProductsGroupList, Filters, Stories } from "@/shared/components/shared";
 import { Suspense } from "react";
 import { findPizzas, GetSearchParams } from "@/shared/lib/find-pizzas";
 
@@ -10,6 +10,8 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
       <Title text="Все пиццы" size="lg" className="font-extrabold"></Title>
     </Container>
     <TopBar categories={categories.filter((category) => category.products.length > 0)} /> {/* Отдельно потому что топбар сам обернут в контейнер и не должен быть внутри этого контейнера */}
+
+    <Stories />
 
     <Container className="pb-14 mt-10">
       <div className="flex gap-[80px]">
