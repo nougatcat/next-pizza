@@ -17,7 +17,6 @@ DADATA_API_KEY=
 
 YOOKASSA_STORE_ID=
 YOOKASSA_API_KEY=
-# у меня на юкассе пароль с БОЛЬШОЙ буквы начинается! И она зарегана на номер телефона
 YOOKASSA_CALLBACK_URL='http://localhost:3000/?paid'
 # в реальном сайте тут указывается url сайта, а не локалхост, естественно
 
