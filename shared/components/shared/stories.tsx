@@ -38,7 +38,7 @@ export const Stories: React.FC<Props> = ({ className }) => {
     }
 
     return <>
-        <Container className={cn('flex items-center justify-between gap-2 my-10', className)}>
+        <Container className={cn('flex flex-wrap items-center justify-start gap-2 my-10', className)}>
             {/* если сторисов нет, выводим скелетоны */}
             {stories.length === 0 &&
                 [...Array(8)].map((_, index) => (

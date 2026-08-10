@@ -49,7 +49,7 @@ export const Header: React.FC<Props> = ({ hasCart = true, hasSearch = true, clas
                 <Link href="/">
                     <div className='flex items-center gap-4'>
                         <Image src='/logo.png' width={32} height={32} alt='logo' />
-                        <div>
+                        <div className='hidden md:block'>
                             <h1 className='text-2xl uppercase font-black'>Next Pizza</h1>
                             <p className='text-sm text-gray-400 leading-3'>вкусней уже некуда</p>
                         </div>
